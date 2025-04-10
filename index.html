@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>파리채 게임</title>
+  <style>
+    body {
+      margin: 0;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    #target {
+      position: relative;
+      z-index: 1;
+      width: 300px;
+      height: auto;
+      cursor: pointer;
+    }
+
+    #swatter {
+      position: absolute;
+      width: 200px;
+      height: auto;
+      display: none;
+      z-index: 2;
+      pointer-events: none;
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <img id="target" src="target.jpg" alt=" " />
+  <img id="swatter" src="swatter.png" alt=" " />
+
+  <script>
+    const target = document.getElementById('target');
+    const swatter = document.getElementById('swatter');
+
+    target.addEventListener('click', (e) => {
+      const rect = target.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      swatter.style.left = `${e.clientX - swatter.width / 2}px`;
+      swatter.style.top = `${e.clientY - swatter.height / 2}px`;
+
+      swatter.style.display = 'block';
+      swatter.style.opacity = '1';
+      swatter.style.transform = 'rotate(0deg) scale(1.2)';
+
+      setTimeout(() => {
+        swatter.style.opacity = '0';
+        swatter.style.transform = 'rotate(-30deg) scale(0.8)';
+      }, 200);
+
+      setTimeout(() => {
+        swatter.style.display = 'none';
+      }, 500);
+    });
+  </script>
+</body>
+</html>
